@@ -18,4 +18,60 @@ public class CachedCalculatorTest
         // Assert
         Assert.That(result, Is.EqualTo(5));
     }
+    [Test]
+    public void Subtract()
+    {
+        // Arrange
+        var calc = new CachedCalculator();
+        var a = 3;
+        var b = 3;
+
+        // Act
+        var result = calc.Subtract(a, b);
+
+        // Assert
+        Assert.That(result, Is.EqualTo(0));
+    }
+    [Test]
+    public void multiply()
+    {
+        // Arrange
+        var calc = new CachedCalculator();
+        var a = 3;
+        var b = 3;
+
+        // Act
+        var result = calc.Multiply(a, b);
+
+        // Assert
+        Assert.That(result, Is.EqualTo(6));
+    }
+    [Test]
+    public void Divide()
+    {
+        // Arrange
+        var calc = new CachedCalculator();
+        var a = 3;
+        var b = 3;
+
+        // Act
+        var result = calc.Divide(a, b);
+
+        // Assert
+        Assert.That(result, Is.EqualTo(1));
+    }
+    [Test]
+    public void isPrime()
+    {
+        // Arrange
+        var calc = new CachedCalculator();
+        var a = 2;
+
+        // Act
+        var result = calc.IsPrime(a);
+
+        // Assert
+        Assert.That(result, Is.EqualTo(true));
+    }
+
 }
