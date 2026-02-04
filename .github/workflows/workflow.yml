@@ -1,0 +1,51 @@
+name: CI Pipeline
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  integration:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Fetch all history for accurate results of code analysis
+          
+      - name: Install required tools
+        run: |
+          dotnet tool install -g dotnet-reportgenerator-globaltool
+          dotnet tool install -g dotnet-stryker
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      # Write a command to execute unit tests while collecting code coverage
+      - name: Run unit tests
+        run: dotnet test --collect:"Xplat Code Coverage" --results-directory TestResults
+
+      # Use the ReportGenerator tool to generate a report from the code coverage results
+      - name: Generate report
+        if: always()
+        run: reportgenerator -reports:"TestResults/**/coverage.cobertura.xml" -targetdir:coverage-report -reporttypes:HTML
+
+      # Write a command to execute mutation tests using Stryker with a threshold of 80% mutation score
+      - name: Run Mutation Tests
+        run: dotnet stryker --break-at 80 --output "stryker-report"
+
+      # Complete this step so it uploads the coverage report to the artifacts - make it run always even if previous steps fail
+      - name: Collect Coverage Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage-report/
+
+      # Complete this step so it uploaads the Stryker report to the artifacts - make it run always even if previous steps fail
+      - name: Collect Stryker Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: stryker-report
+          path: stryker-report/
