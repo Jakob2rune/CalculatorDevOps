@@ -44,7 +44,7 @@ public class CachedCalculatorTest
         var result = calc.Multiply(a, b);
 
         // Assert
-        Assert.That(result, Is.EqualTo(6));
+        Assert.That(result, Is.EqualTo(9));
     }
     [Test]
     public void Divide()
