@@ -61,7 +61,21 @@ public class CachedCalculatorTest
         Assert.That(result, Is.EqualTo(1));
     }
     [Test]
-    public void isPrime()
+    public void isPrime1()
+    {
+        // Arrange
+        var calc = new CachedCalculator();
+        var a = 1;
+
+        // Act
+        var result = calc.IsPrime(a);
+
+        // Assert
+        Assert.That(result, Is.EqualTo(false));
+    }
+    
+    [Test]
+    public void isPrime2()
     {
         // Arrange
         var calc = new CachedCalculator();
@@ -73,5 +87,7 @@ public class CachedCalculatorTest
         // Assert
         Assert.That(result, Is.EqualTo(true));
     }
+    
+    
 
 }
