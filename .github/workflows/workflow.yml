@@ -25,11 +25,11 @@ jobs:
           dotnet tool install -g dotnet-reportgenerator-globaltool
 
       - name: Start Static Code Analysis
-        run: | # INSERT RELEVANT VARIABLES BELOW
+        run: |
           dotnet sonarscanner begin \
-          /k:${{  vars.MY_PROJECT_KEY  }} \
-          /d:sonar.host.url==${{  vars.SONARCUBE_ULR_EASV  }} \ 
-          /d:sonar.token=${{  secrets.SONARQUBE_TOKEN  }} \
+          /k:${{ vars.MY_PROJECT_KEY }} \
+          /d:sonar.host.url=${{ vars.SONARQUBE_URL }} \
+          /d:sonar.token=${{ secrets.SONARQUBE_TOKEN }} \
           /d:sonar.coverageReportPaths="coverage-report/SonarQube.xml" \
           /d:sonar.qualitygate.wait=true \
           /d:sonar.qualitygate.timeout=300
